@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, LinearProgress, TextField, useMediaQuery } from "@mui/material";
 import { GoogleMap, Marker, Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import logo from "../assets/egsl.png";
+import SidebarBanner from "../components/Sidebanner";
 
 const GOOGLE_MAPS_API_KEY = "TON_API_KEY_ICI";
 const libraries = ["places"];
@@ -173,13 +174,20 @@ const FormStep3 = ({ onNext, onPrevious }) => {
       </Box>
 
       {/* Section Bandeau Publicitaire 1/3 */}
-      {!isMobile && (
-        <Box width="34%" bgcolor="#F5F5F5" display="flex" alignItems="center" justifyContent="center">
-          <Typography variant="h6" fontWeight="bold" color="primary">
-            Bandeau publicitaire de l'entreprise
-          </Typography>
-        </Box>
-      )}
+      {/* Bandeau Publicitaire (visible seulement sur Desktop) */}
+{!isMobile && (
+  <Box
+    sx={{
+      width: "34%",
+      borderRadius: 2,
+      boxShadow: 2,
+      marginLeft: 3,
+      overflow: "hidden",
+    }}
+  >
+    <SidebarBanner />
+  </Box>
+)}
     </Box>
   );
 };

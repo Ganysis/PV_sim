@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Button, LinearProgress, useMediaQuery } from "@mui/material";
 import logo from "../assets/egsl.png";
+import SidebarBanner from "../components/Sidebanner";
 
 const FormStep1 = ({ onNext }) => {
   const isMobile = useMediaQuery("(max-width:768px)");
@@ -114,27 +115,18 @@ const FormStep1 = ({ onNext }) => {
 
       {/* Bandeau Publicitaire (visible seulement sur Desktop) */}
       {!isMobile && (
-        <Box
-          sx={{
-            width: "34%",
-            backgroundImage: "url('/public/banner.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontWeight: "bold",
-            borderRadius: 2,
-            boxShadow: 2,
-            marginLeft: 3,
-          }}
-        >
-          <Typography variant="h6" sx={{ backgroundColor: "rgba(0, 0, 0, 0.6)", padding: 2, borderRadius: 2 }}>
-            Bandeau publicitaire de l'entreprise
-          </Typography>
-        </Box>
-      )}
+  <Box
+    sx={{
+      width: "34%",
+      borderRadius: 2,
+      boxShadow: 2,
+      marginLeft: 3,
+      overflow: "hidden",
+    }}
+  >
+    <SidebarBanner />
+  </Box>
+)}
     </Box>
   );
 };

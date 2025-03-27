@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, Button, LinearProgress, Grid, Card, CardContent, Checkbox, useMediaQuery } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import logo from "../assets/egsl.png";
+import SidebarBanner from "../components/Sidebanner";
 
 const equipmentOptions = [
   { id: "pac_air_air", label: "Pompe à Chaleur Air-Air", icon: "🌬️" },
@@ -83,14 +84,20 @@ const FormStep4 = ({ onNext, onPrevious }) => {
         </Box>
       </Box>
 
-      {/* Section Bandeau Publicitaire 1/3 */}
-      {!isMobile && (
-        <Box width="34%" bgcolor="#F5F5F5" display="flex" alignItems="center" justifyContent="center">
-          <Typography variant="h6" fontWeight="bold" color="primary">
-            Bandeau publicitaire de l'entreprise
-          </Typography>
-        </Box>
-      )}
+      {/* Bandeau Publicitaire (visible seulement sur Desktop) */}
+{!isMobile && (
+  <Box
+    sx={{
+      width: "34%",
+      borderRadius: 2,
+      boxShadow: 2,
+      marginLeft: 3,
+      overflow: "hidden",
+    }}
+  >
+    <SidebarBanner />
+  </Box>
+)}
     </Box>
   );
 };
