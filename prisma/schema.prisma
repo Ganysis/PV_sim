@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Prospect {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  nom         String
+  prenom      String
+  telephone   String
+  adresse     String
+  facture     Int
+  equipements String[]
+  rapport     String?
+  createdAt   DateTime @default(now())
+}
+
+model User {
+  phone           String?
+  email           String?         @unique
+  address         String?
+  postalCode      String?
+  city            String?
+  createdAt       DateTime        @default(now())
+  id              String          @id @default(uuid())
+  sessionId       String          @unique
+  country         String?
+  updatedAt       DateTime        @updatedAt
+  status          String
+  consumptionType String?
+  electricity     String?
+  latitude        Float?
+  longitude       Float?
+  firstName       String?
+  lastName        String?
+  solarEstimates  SolarEstimate[]
+}
+
+model SolarEstimate {
+  id                            String   @id @default(uuid())
+  userId                        String
+  latitude                      Float
+  longitude                     Float
+  postalCode                    String?
+  maxArrayPanelsCount           Int
+  maxArrayAreaMeters2           Float
+  maxSunshineHoursPerYear       Int
+  yearlyEnergyDcKwh             Float
+  yearlyEnergyAcKwh             Float
+  installationSizeKw            Float
+  installationCost              Float
+  panelsCount                   Int
+  roofTilt                      Float?
+  roofOrientation               String?
+  panelCoordinates              Json?
+  percentageExportedToGrid      Float
+  solarPercentage               Float
+  costOfElectricityWithoutSolar Float
+  remainingLifetimeUtilityBill  Float
+  monthlyProduction             Json?  // 🌞 Stocke les données mensuelles de production
+  savingsLifetime               Float
+  paybackYears                  Float
+  firstYearSavings              Float
+  firstYearSavingsWithoutSell   Float
+  firstYearSavingsWithSell      Float
+  savingsLifetimeWithSell       Float  // 💡 Nouveau champ pour l'affichage sur 25 ans avec revente
+  savingsLifetimeWithoutSell    Float
+  loanMonthlyPayment            Float? // Simulation prêt
+  loanDurationYears             Int?   // Simulation prêt
+  createdAt                     DateTime @default(now())
+  user                          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
