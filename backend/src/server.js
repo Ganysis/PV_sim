@@ -21,10 +21,13 @@ app.use(bodyParser.json());
 // ✅ Import des routes
 const userRoutes = require("./routes/userRoutes");
 const solarRoutes = require("./routes/solarRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 // ✅ Utilisation des routes
 app.use("/api/users", userRoutes);
 app.use("/api/solar", solarRoutes);
+app.use("/api/admin", adminRoutes);
+
 
 // ✅ Définition du port
 const PORT = process.env.PORT || 5000;

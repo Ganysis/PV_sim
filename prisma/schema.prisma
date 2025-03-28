@@ -39,6 +39,7 @@ model User {
   firstName       String?
   lastName        String?
   solarEstimates  SolarEstimate[]
+  userContacts    UserContact[]  
 }
 
 model SolarEstimate {
@@ -76,4 +77,38 @@ model SolarEstimate {
   user                          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// Nouveau modèle pour les administrateurs
+model Admin {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  password     String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  lastLoginAt  DateTime?
+  adminLogs    AdminLog[]
+  userContacts UserContact[]
+}
 
+// Nouveau modèle pour les logs des actions d'administrateurs
+model AdminLog {
+  id          String   @id @default(uuid())
+  adminId     String
+  action      String
+  details     String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+  admin       Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+}
+
+// Nouveau modèle pour suivre les contacts avec les utilisateurs
+model UserContact {
+  id            String   @id @default(uuid())
+  userId        String
+  adminId       String
+  contactMethod String   // EMAIL, PHONE, MANUAL, etc.
+  notes         String?
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  admin         Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+}

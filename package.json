@@ -14,6 +14,7 @@
     "@prisma/client": "^6.3.0",
     "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.8",
     "cors": "^2.8.5",

@@ -102,7 +102,20 @@ const FormStep5 = ({ onPrevious, onNext }) => {
           <TextField fullWidth label="Votre nom" name="lastName" value={formData.lastName} onChange={handleChange} margin="normal"/>
           <TextField fullWidth label="Votre email" name="email" value={formData.email} onChange={handleChange} margin="normal" error={!isEmailValid(formData.email)} helperText={!isEmailValid(formData.email) ? "Email invalide" : ""}/>
           <TextField fullWidth label="Votre numéro de mobile" name="phone" value={formData.phone} onChange={handleChange} margin="normal" error={!isPhoneValid(formData.phone)} helperText={!isPhoneValid(formData.phone) ? "Numéro invalide (10 chiffres)" : ""}/>
-          <FormControlLabel control={<Checkbox name="acceptTerms" checked={formData.acceptTerms} onChange={handleChange} />} label="J'accepte les conditions d'utilisation."/>
+          <FormControlLabel 
+  control={
+    <Checkbox 
+      name="acceptTerms" 
+      checked={formData.acceptTerms} 
+      onChange={handleChange} 
+    />
+  } 
+  label={
+    <Typography color="primary" fontWeight="medium">
+      J'accepte que mes données soient traitées par EGSL.
+    </Typography>
+  }
+/>
           {error && <Typography color="error" mt={2}>{error}</Typography>}
         </Box>
 

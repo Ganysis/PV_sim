@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 const express = require("express");
 const { getCoordinatesFromAddress } = require("../services/geocodingService");
 const { getSolarData, getPVGISData } = require("../services/solarService");
+const emailService = require("../services/emailService"); // Nouveau: Import du service d'email
 
 const router = express.Router();
 
@@ -183,6 +184,16 @@ console.log("Panneaux sur ", panelLifetimeYears);
 
         console.log("✅ Simulation enregistrée :", solarEstimate);
         
+        // NOUVEAU: Envoi de l'email de notification
+        try {
+            await emailService.sendNewSimulationNotification(solarEstimate, user);
+            console.log("📧 Email de notification envoyé à l'administrateur");
+        } catch (emailError) {
+            // En cas d'erreur d'envoi d'email, on log l'erreur mais on continue
+            console.error("❌ Erreur lors de l'envoi de l'email de notification:", emailError);
+            // On ne renvoie pas d'erreur au client pour ne pas bloquer la réponse
+        }
+        
         res.status(201).json(solarEstimate);
     } catch (error) {
         console.error("❌ Erreur serveur :", error);
@@ -249,6 +260,5 @@ router.get("/users/:sessionId/solar-estimate", async (req, res) => {
         return res.status(500).json({ error: "Erreur serveur." });
     }
 });
-
 
 module.exports = router;

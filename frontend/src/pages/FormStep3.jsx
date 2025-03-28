@@ -4,7 +4,7 @@ import { GoogleMap, Marker, Autocomplete, useJsApiLoader } from "@react-google-m
 import logo from "../assets/egsl.png";
 import SidebarBanner from "../components/Sidebanner";
 
-const GOOGLE_MAPS_API_KEY = "TON_API_KEY_ICI";
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const libraries = ["places"];
 
 const mapContainerStyle = { width: "100%", height: "400px", borderRadius: 8, marginTop: "10px" };
